@@ -6,7 +6,7 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/01 15:51:31 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/01 15:52:23 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/07 21:53:28 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS = 	
 
-NAME = pipex
+NAME = client
 
 OBJS = $(SRCS:.c=.o)
 
