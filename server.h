@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:30:48 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/08 21:51:00 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/09 00:58:34 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 
 typedef struct s_box
 {
-	int	sum;
-	int	phase;
+	int		sum;
+	int		phase;
+	char	*str;
+	int		len;
 }	t_box;
 
 void	ft_putnbr(int n, int fd);
-int		ft_strlen(char *str);
 
 #endif

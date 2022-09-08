@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen                                          :+:      :+:    :+:   */
+/*   client.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 21:16:26 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/08 21:17:03 by yujelee          ###   ########seoul.kr  */
+/*   Created: 2022/09/08 20:30:48 by yujelee           #+#    #+#             */
+/*   Updated: 2022/09/09 00:58:40 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int	count;
+#ifndef CLIENT_H
+# define CLIENT_H
 
-	count = 0;
-	while (str[count])
-		++count;
-	return (count);
-}
+int		ft_atoi(const char *str);
+
+#endif
