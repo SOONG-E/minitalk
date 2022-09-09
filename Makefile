@@ -6,7 +6,7 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/01 15:51:31 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/09 01:21:04 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/09 22:29:59 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,18 +17,26 @@ SRCS = 	libft/ft_atoi.c		\
 		libft/ft_putnbr.c
 
 C_SRCS = client.c
+BONUS_C_SRCS = bonus/client_bonus.c
 
 S_SRCS = server.c
+BONUS_S_SRCS = bonus/server_bonus.c
 
 NAME = client
 
 OBJS = $(SRCS:.c=.o)
 C_OBJS = $(C_SRCS:.c=.o)
 S_OBJS = $(S_SRCS:.c=.o)
+BONUS_C_OBJS = $(BONUS_C_SRCS:.c=.o)
+BONUS_S_OBJS = $(BONUS_S_SRCS:.c=.o)
 
 RM = rm -rf
 
 all : $(NAME) server
+
+bonus : $(OBJS) $(BONUS_C_OBJS) $(BONUS_S_OBJS)
+	$(CC) $(OBJS) $(BONUS_C_OBJS) -o client_bonus
+	$(CC) $(OBJS) $(BONUS_S_OBJS) -o server_bonus
 
 $(NAME) : $(OBJS) $(C_OBJS)
 	$(CC) $(OBJS) $(C_OBJS) -o $@
@@ -40,10 +48,10 @@ server : $(OBJS) $(S_OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	$(RM) $(C_OBJS) $(S_OBJS) $(OBJS)
+	$(RM) $(C_OBJS) $(S_OBJS) $(OBJS) $(BONUS_C_OBJS) $(BONUS_S_OBJS)
 
 fclean : clean
-	$(RM) $(NAME) server
+	$(RM) $(NAME) server client_bonus server_bonus
 	
 re : 
 	make fclean
