@@ -6,7 +6,7 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/01 15:51:31 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/09 22:29:59 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/09 22:47:48 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,17 +32,15 @@ BONUS_S_OBJS = $(BONUS_S_SRCS:.c=.o)
 
 RM = rm -rf
 
-all : $(NAME) server
+all : $(NAME)
 
 bonus : $(OBJS) $(BONUS_C_OBJS) $(BONUS_S_OBJS)
 	$(CC) $(OBJS) $(BONUS_C_OBJS) -o client_bonus
 	$(CC) $(OBJS) $(BONUS_S_OBJS) -o server_bonus
 
-$(NAME) : $(OBJS) $(C_OBJS)
+$(NAME) : $(OBJS) $(C_OBJS) $(S_OBJS)
 	$(CC) $(OBJS) $(C_OBJS) -o $@
-
-server : $(OBJS) $(S_OBJS)
-	$(CC) $(OBJS) $(S_OBJS) -o $@
+	$(CC) $(OBJS) $(S_OBJS) -o server
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -57,4 +55,4 @@ re :
 	make fclean
 	make all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
