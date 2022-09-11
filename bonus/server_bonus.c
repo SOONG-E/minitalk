@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:26:49 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/11 19:47:15 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/11 20:08:55 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@
 
 t_box	g_res;
 
+void	new_client(int pid)
+{
+	g_res.client_pid = pid;
+	kill(g_res.client_pid, SIGUSR1);
+}
+
 void	catching_sig(int signo, siginfo_t *info, void *context)
 {
 	(void)context;
 	if (g_res.client_pid == -1)
-	{
-		g_res.client_pid = info->si_pid;
-		kill(g_res.client_pid, SIGUSR1);
-	}
+		new_client(info->si_pid);
 	else if (g_res.client_pid == info->si_pid)
 	{
 		if (signo == SIGUSR1)
@@ -51,12 +54,12 @@ void	catching_sig(int signo, siginfo_t *info, void *context)
 int	main(void)
 {
 	struct sigaction	act;
-	
-	g_res.client_pid = -1;
+
 	act.sa_sigaction = catching_sig;
 	act.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &act, 0);
 	sigaction(SIGUSR2, &act, 0);
+	g_res.client_pid = -1;
 	write(1, "server's PID : ", 16);
 	ft_putnbr(getpid(), 1);
 	write(1, "\n", 1);

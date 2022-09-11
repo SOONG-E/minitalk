@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:52:36 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/11 19:58:12 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/11 20:05:16 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	sending_msg(int pid, char *str)
 void	waiting_msg(int signo)
 {
 	struct sigaction	act;
-	
+
 	if (signo == SIGUSR1)
 	{
 		act.sa_sigaction = receive_ans;
