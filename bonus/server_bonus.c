@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:26:49 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/09 22:22:42 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/11 19:47:15 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,45 @@
 #include <signal.h>
 #include "server_bonus.h"
 
-t_box	res;
+t_box	g_res;
 
 void	catching_sig(int signo, siginfo_t *info, void *context)
 {
 	(void)context;
-	if (signo == SIGUSR1)
-		res.sum |= 0;
-	else
-		res.sum |= 1;
-	++(res.phase);
-	if (res.phase == 8)
+	if (g_res.client_pid == -1)
 	{
-		write(1, &(res.sum), 1);
-		if (!(res.sum))
-			kill(info->si_pid, SIGUSR1);
-		res.phase = 0;
-		res.sum = 0;
+		g_res.client_pid = info->si_pid;
+		kill(g_res.client_pid, SIGUSR1);
 	}
-	res.sum <<= 1;
+	else if (g_res.client_pid == info->si_pid)
+	{
+		if (signo == SIGUSR1)
+			g_res.sum |= 0;
+		else
+			g_res.sum |= 1;
+		++(g_res.phase);
+		if (g_res.phase == 8)
+		{
+			write(1, &(g_res.sum), 1);
+			if (!(g_res.sum))
+			{
+				kill(info->si_pid, SIGUSR1);
+				g_res.client_pid = -1;
+			}
+			g_res.phase = 0;
+			g_res.sum = 0;
+		}
+		g_res.sum <<= 1;
+	}
+	else
+		kill(info->si_pid, SIGUSR2);
 }
 
-int	main()
+int	main(void)
 {
 	struct sigaction	act;
-
+	
+	g_res.client_pid = -1;
 	act.sa_sigaction = catching_sig;
 	act.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &act, 0);
