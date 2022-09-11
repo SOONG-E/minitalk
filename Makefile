@@ -6,7 +6,7 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/01 15:51:31 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/09 22:47:48 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/11 21:07:09 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ BONUS_S_SRCS = bonus/server_bonus.c
 
 NAME = client
 
+BONUS = client_bonus
+
 OBJS = $(SRCS:.c=.o)
 C_OBJS = $(C_SRCS:.c=.o)
 S_OBJS = $(S_SRCS:.c=.o)
@@ -34,8 +36,10 @@ RM = rm -rf
 
 all : $(NAME)
 
-bonus : $(OBJS) $(BONUS_C_OBJS) $(BONUS_S_OBJS)
-	$(CC) $(OBJS) $(BONUS_C_OBJS) -o client_bonus
+bonus : $(BONUS)
+
+$(BONUS) : $(OBJS) $(BONUS_C_OBJS) $(BONUS_S_OBJS)
+	$(CC) $(OBJS) $(BONUS_C_OBJS) -o $@
 	$(CC) $(OBJS) $(BONUS_S_OBJS) -o server_bonus
 
 $(NAME) : $(OBJS) $(C_OBJS) $(S_OBJS)
